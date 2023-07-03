@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class LureStrength : MonoBehaviour
 {
+    public delegate void StrengthUpdateAction(float value);
+    public event StrengthUpdateAction OnStrengthUpdated;
     private enum LureState
     {
         Ready,
@@ -18,12 +20,16 @@ public class LureStrength : MonoBehaviour
     
     private float _currentStrength = 0f;
     private LureState _state = LureState.Ready;
-    
+    public float MaxStrength => maxStrength;
     
     void Update()
     {
         if (_state is LureState.Charging)
+        {
             _currentStrength = (_currentStrength + lureSpeed * Time.deltaTime) % maxStrength;
+            OnStrengthUpdated?.Invoke(_currentStrength/maxStrength);
+        }
+            
     }
 
     private void OnMainAction()
