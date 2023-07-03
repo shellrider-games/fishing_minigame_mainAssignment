@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.InputSystem;
 
 
 public class LureStrength : MonoBehaviour
@@ -32,8 +32,9 @@ public class LureStrength : MonoBehaviour
             
     }
 
-    private void OnMainAction()
+    public void OnMainAction(InputAction.CallbackContext ctx)
     {
+        if(!ctx.performed) return;
         switch (_state)
         {
             case LureState.Ready:
