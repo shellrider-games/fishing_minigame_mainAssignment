@@ -5,6 +5,10 @@ using UnityEngine.InputSystem;
 
 public class MouseLookControl : MonoBehaviour
 {
+    public delegate void LookAroundAction(Transform transform);
+
+    public event LookAroundAction AfterLookAround;
+    
     [SerializeField][Range(0.1f, 1f)] private float lookSpeed = 1f;
     [SerializeField] private float maxVertical = 15f;
     [SerializeField] private float maxHorizontal = 15f;
@@ -24,5 +28,6 @@ public class MouseLookControl : MonoBehaviour
             nextRotation.y = nextRotation.y < 180 ? maxHorizontal : 360 - maxHorizontal;
         }
         transform.localRotation = Quaternion.Euler(nextRotation);
+        AfterLookAround?.Invoke(transform);
     }
 }
