@@ -17,6 +17,10 @@ public class LureStrength : MonoBehaviour
     
     [SerializeField] private float maxStrength = 1f;
     [SerializeField] private float lureSpeed = 1f;
+    [SerializeField] private Transform pond;
+    [SerializeField] private float maxDeployDistance;
+
+    [SerializeField] private GameObject bobberPrefab;
     
     private float _currentStrength = 0f;
     private LureState _state = LureState.Ready;
@@ -41,7 +45,7 @@ public class LureStrength : MonoBehaviour
                 _state = LureState.Charging;
                 break;
             case LureState.Charging:
-                Debug.Log($"Deploy with Strength: {_currentStrength}");
+                Deploy();
                 _state = LureState.Deployed;
                 break;
             default:
@@ -49,6 +53,14 @@ public class LureStrength : MonoBehaviour
                 break;
         }
     }
-    
+
+    public void Deploy()
+    {
+        Vector3 deployTo = transform.position + transform.forward * ( 2 + maxDeployDistance * _currentStrength);
+        deployTo.y = pond.position.y;
+        _currentStrength = 0;
+        OnStrengthUpdated?.Invoke(0);
+        Instantiate(bobberPrefab, deployTo, Quaternion.identity);
+    }
     
 }

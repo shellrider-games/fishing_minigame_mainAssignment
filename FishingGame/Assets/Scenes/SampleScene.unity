@@ -647,7 +647,7 @@ Terrain:
   m_Enabled: 1
   serializedVersion: 6
   m_TerrainData: {fileID: 15600000, guid: 15b5ac22418644891abc2891fc48709d, type: 2}
-  m_TreeDistance: 5000
+  m_TreeDistance: 26
   m_TreeBillboardDistance: 50
   m_TreeCrossFadeLength: 5
   m_TreeMaximumFullLODCount: 50
@@ -791,6 +791,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxStrength: 1
   lureSpeed: 0.5
+  pond: {fileID: 1653726800}
+  maxDeployDistance: 6
+  bobberPrefab: {fileID: 7446068931181633109, guid: c554918cb7a858047880d739e32861a8,
+    type: 3}
 --- !u!114 &982261206
 MonoBehaviour:
   m_ObjectHideFlags: 0
