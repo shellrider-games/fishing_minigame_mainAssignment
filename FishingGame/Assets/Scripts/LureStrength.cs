@@ -21,6 +21,8 @@ public class LureStrength : MonoBehaviour
     [SerializeField] private float maxDeployDistance;
 
     [SerializeField] private GameObject bobberPrefab;
+
+    [SerializeField] private Transform bobberSpawn;
     
     private float _currentStrength = 0f;
     private LureState _state = LureState.Ready;
@@ -58,9 +60,12 @@ public class LureStrength : MonoBehaviour
     {
         Vector3 deployTo = transform.position + transform.forward * ( 2 + maxDeployDistance * _currentStrength);
         deployTo.y = pond.position.y;
+        Vector3 controlPoint = transform.position + transform.forward * (2 + maxDeployDistance * _currentStrength) / 2;
+        controlPoint.y = pond.position.y + 2f;
         _currentStrength = 0;
         OnStrengthUpdated?.Invoke(0);
-        Instantiate(bobberPrefab, deployTo, Quaternion.identity);
+        GameObject noob = Instantiate(bobberPrefab, bobberSpawn.position, Quaternion.identity);
+        noob.GetComponent<MoveAlongQuadraticBezier>().MoveTo(deployTo, controlPoint);
     }
     
 }
