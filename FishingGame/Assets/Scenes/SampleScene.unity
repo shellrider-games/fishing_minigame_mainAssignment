@@ -1229,7 +1229,7 @@ MonoBehaviour:
   radius: 4.5
   prefabToSpawn: {fileID: 1708189094156644066, guid: 885a45aa5c39abd4a9f37bbd4c880267,
     type: 3}
-  amount: 8
+  amount: 20
 --- !u!1 &1750616199
 GameObject:
   m_ObjectHideFlags: 0
