@@ -31,13 +31,7 @@ public class CircleSpawner : MonoBehaviour
     {
         SpawnPrefabs();
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
+    
     private void SpawnPrefabs()
     {
         for (int i = 0; i < amount; i++)
@@ -46,7 +40,7 @@ public class CircleSpawner : MonoBehaviour
             float angle = Random.Range(0, 2 * Mathf.PI);
             Instantiate(prefabToSpawn, 
                 transform.position + radius * new Vector3(Mathf.Cos(angle), 0, Mathf.Sin(angle))
-                , Quaternion.identity);
+                , Quaternion.Euler(0,Random.Range(0,360),0));
         }
     }
 }
