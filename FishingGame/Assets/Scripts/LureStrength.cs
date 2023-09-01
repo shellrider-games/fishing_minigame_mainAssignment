@@ -26,6 +26,9 @@ public class LureStrength : MonoBehaviour
     
     private float _currentStrength = 0f;
     private LureState _state = LureState.Ready;
+
+    private Bobber _bobber;
+    
     public float MaxStrength => maxStrength;
     
     void Update()
@@ -50,13 +53,16 @@ public class LureStrength : MonoBehaviour
                 Deploy();
                 _state = LureState.Deployed;
                 break;
+            case LureState.Deployed:
+                ReelIn();
+                break;
             default:
-                Debug.Log("Already Deployed");
+                Debug.Log("Undefined");
                 break;
         }
     }
 
-    public void Deploy()
+    private void Deploy()
     {
         Vector3 deployTo = transform.position + transform.forward * ( 2 + maxDeployDistance * _currentStrength);
         deployTo.y = pond.position.y;
@@ -65,7 +71,15 @@ public class LureStrength : MonoBehaviour
         _currentStrength = 0;
         OnStrengthUpdated?.Invoke(0);
         GameObject noob = Instantiate(bobberPrefab, bobberSpawn.position, Quaternion.identity);
+        _bobber = noob.GetComponent<Bobber>();
         noob.GetComponent<MoveAlongQuadraticBezier>().MoveTo(deployTo, controlPoint);
     }
-    
+
+    private void ReelIn()
+    {
+        if(_bobber == null || !_bobber.Ready) return;
+        _bobber.ReelIn();
+        _bobber = null;
+        _state = LureState.Ready;
+    }
 }

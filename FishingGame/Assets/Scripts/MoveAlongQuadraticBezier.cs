@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class MoveAlongQuadraticBezier : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class MoveAlongQuadraticBezier : MonoBehaviour
     private Vector3 _previousPosition;
     private float _elapsedTime;
     private bool _move = false;
+    [SerializeField] private UnityEvent executeAfterGoalReached; 
     
     
     
@@ -26,6 +28,7 @@ public class MoveAlongQuadraticBezier : MonoBehaviour
             {
                 transform.position = _to;
                 _move = false;
+                executeAfterGoalReached.Invoke();
             }
         }
     }

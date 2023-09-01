@@ -38,9 +38,8 @@ public class CircleSpawner : MonoBehaviour
         {
             float radius = Random.Range(0, this.radius);
             float angle = Random.Range(0, 2 * Mathf.PI);
-            Instantiate(prefabToSpawn, 
-                transform.position + radius * new Vector3(Mathf.Cos(angle), 0, Mathf.Sin(angle))
-                , Quaternion.Euler(0,Random.Range(0,360),0));
+            Vector3 pos = transform.position + radius * new Vector3(Mathf.Cos(angle), 0, Mathf.Sin(angle));
+            Instantiate(prefabToSpawn, pos, Quaternion.Euler(0,Random.Range(0,360),0));
         }
     }
 }
